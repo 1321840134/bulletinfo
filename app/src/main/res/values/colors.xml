@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="shadow">#99000000</color>
+    <color name="main_color">#FA7C20</color>
+
+    <color name="line">#EFEFEF</color>
+    <color name="halfLine">#29000000</color>
+    <color name="line1">#EDEDED</color>
+    <color name="background">#F2F2F2</color>
+    <color name="test" >#0000ff</color>
+    <color name="dark_grey">#151515</color>
+    <color name="title_background">#0cbaa7</color>
+    <color name="gray">#a0000000</color>
+    <color name="gray_half">#6a000000</color>
+    <color name="grays">#cccccc</color>
+    <color name="white">#ffffff</color>
+    <color name="search_hint_text_color">#CCCCCC</color>
+    <color name="black">#000</color>
+    <color name="black1">#111111</color>
+    <color name="black2">#222222</color>
+    <color name="black3">#333333</color>
+    <color name="black4">#444444</color>
+    <color name="black5">#555555</color>
+    <color name="black6">#666666</color>
+    <color name="black7">#777777</color>
+    <color name="black8">#888888</color>
+    <color name="black9">#999999</color>
+    <color name="online_price">#2f2f2f</color>
+    <color name="dark">#e9eded</color>
+    <color name="nav_default_text_color">#6d6c69</color>
+    <color name="adadad">#adadad</color>
+    <color name="five_f">#8d000000</color>
+    <color name="nav_select_text_color">#5D8CDC</color>
+    <color name="main_bg">#c9c9c9</color>
+    <color name="wifi_text">#3b9bd8</color>
+    <color name="catering_text">#fb737f</color>
+    <color name="life_text">#ffc976</color>
+    <color name="casual_text">#3b9bd8</color>
+    <color name="shop_marks_bg">#79000000</color>
+
+    <color name="title_fen_red">#eb5a67</color>
+    <color name="btn_bg_green">#25933a</color>
+    <color name="site_popuwindow_item_line">#d6d6d6</color>
+    <color name="dingzuo">#7a7a7a</color>
+    <color name="telephone">#393939</color>
+    <color name="price_yellow">#ffae00</color>
+    <color name="price_org">#808080</color>
+    <color name="light_line_color">#dddddd</color>
+    <color name="cache_colorHint">#ffffffff</color>
+    <color name="person_head_red_color">#fd5b6d</color>
+    <color name="person_item_word_color">#626262</color>
+    <color name="layout_bg">#eeeeee</color>
+    <color name="pay_word_color">#2d2d2d</color>
+    <color name="register_app">#a79f9f</color>
+    <color name="register_btn_default">#948e90</color>
+    <color name="yellow">#fda803</color>
+    <color name="recommend">#434343</color>
+    <color name="btn_press">#fa828d</color>
+    <color name="btn_default">#ea5b67</color>
+    <color name="address_color">#676767</color>
+    <color name="address_backgrounds">#71649a</color>
+    <color name="btn_yellow">#FC790F</color>
+    <color name="code_yellow">#FEAB78</color>
+    <color name="goin_yellow">#FFFB3D</color>
+    <color name="yellows">#ff8d4f</color>
+
+    <!--******************datepicer*********************-->
+    <color name="transparent">#00000000</color>
+    <color name="np_numberpicker_selection_divider">#1c96e2</color>
+    <drawable name="date_sure_press">#388ff1</drawable>
+    <drawable name="date_sure_default">#779dc8</drawable>
+    <drawable name="date_cancle_press">#666666</drawable>
+    <drawable name="date_cancle_default">#cac8c9</drawable>
+
+    <color name="black01">#4C4C4C</color>
+
+    <!--蓝色-->
+    <color name="blue">#27a4e2</color>
+    <color name="bluetop">#438BE8</color>
+    <color name="blue00">#00B8EE</color>
+    <color name="login_color">#b9caed</color>
+    <color name="bluewhife">#58163dff</color>
+    <color name="blue01">#023cce</color>
+    <color name="blue02">#025ece</color>
+    <color name="blue03">#0287ce</color>
+    <color name="blue04">#02a5ce</color>
+    <color name="blue05">#02bdce</color>
+    <color name="blue06">#6BD7B8</color>
+    <color name="blue07">#80A4FC</color>
+    <color name="bluehide">#C2D7EE</color>
+    <color name="code_btn">#5e8bdb</color>
+    <color name="common_white_button_down">#ffeaeaea</color>
+    <color name="stroke_light">#ffdddddd</color>
+    <color name="common_text_black_color">#ff666666</color>
+    <!-- 绿色 -->
+    <color name="green">#45CD87</color>
+    <color name="green01">#b8eff9</color>
+    <color name="green02">#59e1fa</color>
+    <color name="green03">#C9FFDE</color>
+    <color name="green04">#31F77E</color>
+    <color name="green05">#9BECF9</color>
+    <color name="green06">#3E9435</color>
+    <!-- 紫色 -->
+    <color name="violet01">#DB96FF</color>
+    <color name="violet02">#BE55F5</color>
+    <color name="violet03">#CBC3EE</color>
+    <color name="violet04">#937FEF</color>
+    <color name="violet05">#164571</color>
+
+    <!-- 浅黄绿 -->
+    <color name="yellowGreen01">#D6FB9C</color>
+    <color name="yellowGreen02">#A9F82E</color>
+    <color name="yellow01">#FCDB70</color>
+    <color name="yellow02">#F8C82E</color>
+
+    <!-- 红紫 -->
+    <color name="red">#DE452F</color>
+    <color name="red01">#F9B2C0</color>
+    <color name="red02">#bdff020f</color>
+    <color name="red03">#EA8B7E</color>
+    <color name="red04">#FF8B8C</color>
+    <color name="redViolet01">#F6D1F3</color>
+    <color name="redViolet02">#F6728C</color>
+    <color name="reds">#DC5039</color>
+
+    <!-- 灰色 -->
+
+    <color name="gray0999">#f2f2f2</color>
+    <color name="gray01">#dadde2</color>
+    <color name="gray02">#a3a1a1</color>
+    <color name="gray03">#9FA2A3</color>
+    <color name="gray04">#757778</color>
+    <color name="gray05">#95A3AE</color>
+    <color name="gray06">#f5f5f5</color>
+    <color name="gray07">#838181</color>
+    <color name="gray08">#BBBBBC</color>
+    <color name="graybg">#F3F3F3</color>
+    <color name="graybg1">#F2F2F2</color>
+
+    <!-- 半透明 -->
+    <color name="translucent01">#55000000</color>
+    <color name="translucent02">#97000000</color>
+    <color name="switch_color_on">#ff56cc51</color>
+    <color name="switch_color_off">#ffcccccc</color>
+
+    <!-- 导航栏颜色-->
+</resources>

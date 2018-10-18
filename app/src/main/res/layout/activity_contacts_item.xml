@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:weightSum="6">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/call_phone"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:background="@drawable/contacts_btn_callphone"
+                android:text="拨号"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/contacts_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="名字"/>
+            <TextView
+                android:id="@+id/contacts_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="+8613555555555"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/call_bullet"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/contacts_btn_callphone"
+                android:text="联系"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

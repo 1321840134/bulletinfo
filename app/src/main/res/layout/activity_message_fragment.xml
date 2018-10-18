@@ -1,0 +1,114 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="bulletinfo.com.bulletinfo.fragment.EnshrineFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/bluetop">
+
+            <ToggleButton
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/toggle_drawable_selector"
+                android:textOff="文字"
+                android:textOn="语音" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="80dp"
+                        android:layout_height="30dp"
+                        android:text="所有消息"
+                        android:background="@drawable/radio_button_style"
+                        android:gravity="center"
+                        android:button="@null"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:layout_width="80dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/radio_button_style"
+                        android:text="稍后处理"
+                        android:gravity="center"
+                        android:button="@null"
+                        android:textColor="@color/white" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/edit_more_drawable"
+                android:gravity="center_horizontal"
+                android:text="..."
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#eeeeee"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:weightSum="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/search_input"
+                android:layout_width="match_parent"
+                android:layout_weight=".8"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/edit_search_drawable"
+                android:drawableLeft="@mipmap/search"
+                android:paddingLeft="10dp"
+                android:drawablePadding="5dp"
+                android:hint="请输入关键字"
+                android:inputType="text"
+                android:textSize="16sp" />
+            <Button
+                android:id="@+id/edit_cancel"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.2"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/edit_searchbtn_drawable"
+                android:text="取消"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#999"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

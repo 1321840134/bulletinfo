@@ -1,5 +1,10 @@
 package bulletinfo.com.bulletinfo.activity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,11 +14,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import bulletinfo.com.bulletinfo.R;
+import bulletinfo.com.bulletinfo.util.Constant;
 import bulletinfo.com.bulletinfo.util.ToastUtils;
+import cn.smssdk.SMSSDK;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class LoginByPwActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,6 +37,7 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
     private boolean isHide = false;
     /*判断密码*/
     private boolean isShow = false;
+    private Context context;
 
     public final static int CONNECT_TIMEOUT = 60;
     public final static int READ_TIMEOUT = 100;
@@ -37,6 +52,7 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_by_pw);
+        context = this;
         initView();
     }
 
@@ -87,7 +103,6 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String pw = password.getText().toString();
-                Log.e("sdsfds",String.valueOf(isHide));
                 if (pw.isEmpty()||pw.length()<6){
                     isShow = false;
                     login.setEnabled(false);
@@ -126,6 +141,76 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void CheckLogin(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String phone = account.getText().toString();
+                String pw = password.getText().toString();
+                String url = Constant.URL1+"/login/"+phone+"/"+pw;
+                RequestBody requestBody = RequestBody.create(null, "");
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(requestBody)
+                        .build();
+                //发送请求获取响应
+                try {
+                    Response response=client.newCall(request).execute();
+                    //判断请求是否成功
+                    if(response.isSuccessful()){
+                        //打印服务端返回结果
+                        Message message=new Message();
+                        message.what=200;
+                        message.obj=response.body().string();
+                        mHandler.sendMessage(message);//使用Message传递消息给线程
 
+                    }else{
+                        Message message=new Message();
+                        message.what=500;
+                        message.obj="服务器异常";
+                        mHandler.sendMessage(message);//使用Message传递消息给线程
+                    }
+                } catch (IOException e) {
+                    Message message=new Message();
+                    message.what=500;
+                    message.obj="服务器异常";
+                    mHandler.sendMessage(message);//使用Message传递消息给线程
+                }
+            }
+        }).start();
     }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler(){
+        @Override
+        public void dispatchMessage(Message msg) {
+            super.dispatchMessage(msg);
+            switch (msg.what) {
+                case 200:
+                    String result =  msg.obj.toString();
+                    Log.i("Result========",result);
+                    try{
+                        JSONObject object = new JSONObject(result);
+                        if(object.getString("code").equals("200")){
+                            Intent intent = new Intent(context,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            ToastUtils.showShort(context,"账号或密码错误");
+                        }
+
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case 500:
+                    Log.e("ERROR=====","服务器异常！");
+                    ToastUtils.showShort(context,"服务器异常");
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    };
 }

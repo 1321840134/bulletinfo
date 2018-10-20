@@ -290,7 +290,7 @@ public class ResetPwActivity extends AppCompatActivity implements View.OnClickLi
                         } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) { //提交验证码
                             Log.d(TAG, "submit code successful");
 
-                            Intent intent = new Intent(context, SetPwActivity.class);
+                            Intent intent = new Intent(ResetPwActivity.this, SetPwActivity.class);
                             intent.putExtra("Phone",strPhoneNumber);
                             startActivity(intent);
                             finish();

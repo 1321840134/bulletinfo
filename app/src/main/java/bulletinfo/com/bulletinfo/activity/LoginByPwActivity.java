@@ -77,7 +77,7 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String phone = account.getText().toString();
-               if (phone.length() == 0){
+               if (phone.isEmpty()||phone.length()<1){
                    isHide = true;
                    login.setEnabled(false);
                    login.setBackgroundResource(R.drawable.sendcode_hide);

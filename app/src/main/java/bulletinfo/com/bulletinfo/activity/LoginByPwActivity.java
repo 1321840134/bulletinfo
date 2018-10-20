@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import bulletinfo.com.bulletinfo.R;
 import bulletinfo.com.bulletinfo.util.Constant;
+import bulletinfo.com.bulletinfo.util.EditTextUtil;
 import bulletinfo.com.bulletinfo.util.ToastUtils;
 import cn.smssdk.SMSSDK;
 import okhttp3.OkHttpClient;
@@ -33,6 +35,7 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
 
     private EditText account,password;
     private Button back,login;
+    private ImageView imageView;
     /*判断账号*/
     private boolean isHide = false;
     /*判断密码*/
@@ -61,8 +64,10 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
         login = (Button) findViewById(R.id.loginin);
         account = (EditText) findViewById(R.id.phone);
         password = (EditText) findViewById(R.id.pw);
+        imageView = (ImageView) findViewById(R.id.pw_see);
         back.setOnClickListener(this);
         login.setOnClickListener(this);
+        imageView.setOnClickListener(this);
         account.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -136,6 +141,10 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.loginin:
                 CheckLogin();
+                break;
+
+            case R.id.pw_see:
+                EditTextUtil.pwdShow(context,password,imageView);
                 break;
         }
     }

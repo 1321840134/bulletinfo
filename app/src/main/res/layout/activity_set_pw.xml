@@ -65,7 +65,17 @@
                         android:layout_centerVertical="true"
                         android:background="@null"
                         android:hint="密码"
+                        android:ems="10"
+                        android:maxLength="16"
                         android:inputType="textPassword" />
+
+                    <ImageView
+                        android:id="@+id/pw_see"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:background="@mipmap/yanjing1"/>
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -91,14 +101,14 @@
             android:layout_marginTop="10dp"
             android:layout_weight="1.2">
             <Button
-                android:id="@+id/sendCode"
+                android:id="@+id/complete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/sendcode_hide"
-                android:text="获取手机验证码"
+                android:text="完成"
                 android:textSize="20sp"
                 android:enabled="false"
                 android:textColor="@color/white"/>

@@ -62,6 +62,7 @@ public class ResetPwActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pw);
         context = this;
+        initView();
     }
 
     private void initView() {
@@ -157,7 +158,7 @@ public class ResetPwActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.cancle:
+            case R.id.back:
                 finish();
                 break;
 
@@ -289,9 +290,10 @@ public class ResetPwActivity extends AppCompatActivity implements View.OnClickLi
                         } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) { //提交验证码
                             Log.d(TAG, "submit code successful");
 
-//                            Intent intent = new Intent(context, MainActivity.class);
-//                            startActivity(intent);
-//                            finish();
+                            Intent intent = new Intent(context, SetPwActivity.class);
+                            intent.putExtra("Phone",strPhoneNumber);
+                            startActivity(intent);
+                            finish();
 
                         } else {
                             Log.d(TAG, data.toString());

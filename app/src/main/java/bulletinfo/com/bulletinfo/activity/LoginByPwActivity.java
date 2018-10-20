@@ -146,7 +146,7 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
             public void run() {
                 String phone = account.getText().toString();
                 String pw = password.getText().toString();
-                String url = Constant.URL1+"/login/"+phone+"/"+pw;
+                String url = Constant.URL+"/login/"+phone+"/"+pw;
                 RequestBody requestBody = RequestBody.create(null, "");
                 Request request = new Request.Builder()
                         .url(url)

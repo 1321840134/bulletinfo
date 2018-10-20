@@ -16,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8"
+            android:layout_weight="1"
             android:background="@color/bluetop">
             <Button
                 android:id="@+id/back"
@@ -149,7 +149,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:background="@null"
-                        android:hint="请输入账号"
+                        android:hint="请输入密码"
                         android:inputType="textPassword"
                         android:layout_marginLeft="45dp" />
                 </RelativeLayout>

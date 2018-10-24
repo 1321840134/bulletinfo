@@ -9,12 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import bulletinfo.com.bulletinfo.R;
-import bulletinfo.com.bulletinfo.bean.Friends;
-import bulletinfo.com.bulletinfo.dao.Friends_Dao;
-import bulletinfo.com.bulletinfo.db.DatabaseHelper;
+
 
 public class MessageFragment extends Fragment implements View.OnClickListener {
     private EditText search_input;

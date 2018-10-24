@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
+//使用greendao
+apply plugin: 'org.greenrobot.greendao'
 
 MobSDK {
     appKey "28443fe96b437"
@@ -23,6 +25,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    //greendao配置
+    greendao {
+        schemaVersion 1  //版本
+        daoPackage 'bulletinfo.com.bulletinfo.greendao' // 一般为app包名+生成文件的文件夹名
+        targetGenDir 'src/main/java' //生成文件路径
+    }
 }
 
 buildscript {
@@ -45,4 +53,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.alibaba:fastjson:1.2.10'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'org.greenrobot:greendao:3.2.0' //greendao依赖
+    implementation 'org.greenrobot:greendao-generator:3.2.0'
 }

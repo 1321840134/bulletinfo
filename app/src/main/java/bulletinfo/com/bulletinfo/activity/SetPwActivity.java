@@ -25,22 +25,20 @@ import bulletinfo.com.bulletinfo.R;
 import bulletinfo.com.bulletinfo.util.Constant;
 import bulletinfo.com.bulletinfo.util.EditTextUtil;
 import bulletinfo.com.bulletinfo.util.ToastUtils;
-import cn.smssdk.SMSSDK;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class LoginByPwActivity extends AppCompatActivity implements View.OnClickListener {
+public class SetPwActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText account,password;
-    private Button back,login;
+    private EditText password;
+    private Button back,complete;
     private ImageView imageView;
-    /*判断账号*/
-    private boolean isHide = false;
-    /*判断密码*/
-    private boolean isShow = false;
+    //验证密码的正则表达式
+    String myerg = "^(?![\\d]+$)(?![a-zA-Z]+$)(?![^\\da-zA-Z]+$).{6,16}$";
     private Context context;
+    private String phone;
 
     public final static int CONNECT_TIMEOUT = 60;
     public final static int READ_TIMEOUT = 100;
@@ -54,51 +52,22 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_by_pw);
+        setContentView(R.layout.activity_set_pw);
+        Intent intent = getIntent();
+        phone = intent.getStringExtra("Phone");
+        Log.e("sdfsdfds",phone);
         context = this;
         initView();
     }
 
     private void initView() {
-        back = (Button) findViewById(R.id.back);
-        login = (Button) findViewById(R.id.loginin);
-        account = (EditText) findViewById(R.id.phone);
         password = (EditText) findViewById(R.id.pw);
+        back = (Button) findViewById(R.id.back);
+        complete = (Button) findViewById(R.id.complete);
         imageView = (ImageView) findViewById(R.id.pw_see);
         back.setOnClickListener(this);
-        login.setOnClickListener(this);
+        complete.setOnClickListener(this);
         imageView.setOnClickListener(this);
-        account.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String phone = account.getText().toString();
-               if (phone.isEmpty()||phone.length()<1){
-                   isHide = true;
-                   login.setEnabled(false);
-                   login.setBackgroundResource(R.drawable.sendcode_hide);
-               }else {
-                   isHide = false;
-                   if (isShow == false){
-                       login.setEnabled(false);
-                       login.setBackgroundResource(R.drawable.sendcode_hide);
-                   }else{
-                       login.setEnabled(true);
-                       login.setBackgroundResource(R.drawable.sendcode_show);
-                   }
-               }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
         password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -108,21 +77,13 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String pw = password.getText().toString();
-                if (pw.isEmpty()||pw.length()<6){
-                    isShow = false;
-                    login.setEnabled(false);
-                    login.setBackgroundResource(R.drawable.sendcode_hide);
+                if (pw.isEmpty()||!checkString(pw)){
+                    complete.setEnabled(false);
+                    complete.setBackgroundResource(R.drawable.sendcode_hide);
                 }else {
-                    isShow = true;
-                    if (isHide == true){
-                        login.setEnabled(false);
-                        login.setBackgroundResource(R.drawable.sendcode_hide);
-                    }else{
-                        login.setEnabled(true);
-                        login.setBackgroundResource(R.drawable.sendcode_show);
-                    }
+                    complete.setEnabled(true);
+                    complete.setBackgroundResource(R.drawable.sendcode_show);
                 }
-
             }
 
             @Override
@@ -139,23 +100,23 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
                 finish();
                 break;
 
-            case R.id.loginin:
-                CheckLogin();
+            case R.id.complete:
+                updatePw();
                 break;
 
             case R.id.pw_see:
                 EditTextUtil.pwdShow(context,password,imageView);
                 break;
+
         }
     }
 
-    public void CheckLogin(){
+    private void updatePw() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String phone = account.getText().toString();
                 String pw = password.getText().toString();
-                String url = Constant.URL+"/login/"+phone+"/"+pw;
+                String url = Constant.URL+"/updatePw/"+pw+"/"+phone;
                 RequestBody requestBody = RequestBody.create(null, "");
                 Request request = new Request.Builder()
                         .url(url)
@@ -200,11 +161,11 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
                     try{
                         JSONObject object = new JSONObject(result);
                         if(object.getString("code").equals("200")){
-                            Intent intent = new Intent(context,MainActivity.class);
+                            Intent intent = new Intent(context,LoginInfoActivity.class);
                             startActivity(intent);
                             finish();
                         }else {
-                            ToastUtils.showShort(context,"账号或密码错误");
+                            ToastUtils.showShort(context,"密码修改失败");
                         }
 
                     }catch (JSONException e){
@@ -222,4 +183,9 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
             }
         }
     };
+
+    //检查密码格式
+    private boolean checkString(String s) {
+        return s.matches(myerg);
+    }
 }

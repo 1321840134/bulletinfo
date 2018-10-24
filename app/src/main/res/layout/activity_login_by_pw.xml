@@ -16,8 +16,18 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8"
+            android:layout_weight="1"
             android:background="@color/bluetop">
+            <Button
+                android:id="@+id/back"
+                android:layout_width="55dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/btn_cancle"
+                android:text="返回"
+                android:textColor="#ffffff"
+                android:layout_alignParentLeft="true" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,7 +69,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true">
+                        android:layout_alignParentRight="true">
                         <TextView
                             android:id="@+id/country"
                             android:layout_width="wrap_content"
@@ -110,10 +120,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="45dp"
                         android:background="@null"
                         android:hint="请输入账号"
-                        android:inputType="phone" />
+                        android:inputType="text"
+                        android:layout_marginLeft="45dp" />
                 </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
@@ -138,10 +148,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="45dp"
                         android:background="@null"
-                        android:hint="请输入账号"
-                        android:inputType="textPassword" />
+                        android:hint="请输入密码"
+                        android:ems="10"
+                        android:maxLength="16"
+                        android:inputType="textPassword"
+                        android:layout_marginLeft="45dp" />
+
+                    <ImageView
+                        android:id="@+id/pw_see"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:background="@mipmap/yanjing1"/>
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>

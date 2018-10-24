@@ -38,6 +38,10 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
     private Button cancle,sendCode;
     private EditText phone,yzm;
     private TextView changelogin,resetpw;
+    /*判断验证码*/
+    private boolean isShow = false;
+    /*判断手机*/
+    private boolean isHide = false;
     /*手机号码验证*/
     private String regx = "^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\\d{8}$";
 
@@ -52,6 +56,7 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
 
     private Context context;
     private EventHandler eventHandler;
+    private String strPhoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,9 +113,11 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
                 if (info.isEmpty()||!checkString(info)){
                     sendCode.setEnabled(false);
                     sendCode.setBackgroundResource(R.drawable.sendcode_hide);
+                    isHide = true;
                 }else {
                     sendCode.setEnabled(true);
                     sendCode.setBackgroundResource(R.drawable.sendcode_show);
+                    isHide = false;
                 }
             }
 
@@ -130,9 +137,18 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
             public void onTextChanged(CharSequence charSequence, int start, int count, int after) {
                 String code = yzm.getText().toString().trim();
                 if (code.isEmpty()||code.length()!=6){
-                    myHandler.sendEmptyMessage(0x02);
+                    sendCode.setText("重新发送手机验证码");
+                    isShow = false;
                 }else {
-
+                    sendCode.setText("登录");
+                    isShow = true;
+                    if (!isHide){
+                        sendCode.setClickable(true);
+                        sendCode.setBackgroundResource(R.drawable.sendcode_show);
+                    }else{
+                        sendCode.setClickable(false);
+                        sendCode.setBackgroundResource(R.drawable.sendcode_hide);
+                    }
                 }
             }
 
@@ -143,6 +159,7 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -151,7 +168,12 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.sendCode:
-                checkUser();
+                String text = sendCode.getText().toString();
+                if (text.equals("登录")){
+                    SMSSDK.submitVerificationCode("86", strPhoneNumber, yzm.getText().toString());
+                }else{
+                    checkUser();
+                }
                 break;
 
             case R.id.changelogin:
@@ -217,8 +239,8 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
                     try{
                         JSONObject object = new JSONObject(result);
                         if(object.getString("code").equals("200")){
-                            String info = phone.getText().toString().trim();
-                            SMSSDK.getVerificationCode("86", info);
+                            strPhoneNumber = phone.getText().toString().trim();
+                            SMSSDK.getVerificationCode("86", strPhoneNumber);
                             sendCode.setClickable(false);
                             sendCode.setBackgroundResource(R.drawable.sendcode_hide);
                             //开启线程去更新button的text
@@ -307,8 +329,10 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
                     }
                     break;
                 case 0x01:
-                    sendCode.setText("重新发送手机验证码(" + msg.arg1 + ")");
-                    sendCode.setBackgroundResource(R.drawable.sendcode_hide);
+                    if (!isShow){
+                        sendCode.setText("重新发送手机验证码(" + msg.arg1 + ")");
+                        sendCode.setBackgroundResource(R.drawable.sendcode_hide);
+                    }
                     break;
                 case 0x02:
                     sendCode.setText("重新发送手机验证码");

@@ -1,62 +1,52 @@
 package bulletinfo.com.bulletinfo.bean;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
+
 /**
  * Created by foxcold on 2018/10/9.
  */
-
+@Entity
 public class Friends {
-    private int id;     //好友对应主键
+    @Id(autoincrement = true)
+    private long id;     //好友对应主键
     private int fid; //好友id
     private String time; //建立时间
     private int uid;   //用户id
-    private String user_name; //用户名
-
-    public Friends(){}
-
-    public int getId() {
-        return id;
+    @Generated(hash = 924857691)
+    public Friends(long id, int fid, String time, int uid) {
+        this.id = id;
+        this.fid = fid;
+        this.time = time;
+        this.uid = uid;
     }
-
-    public void setId(int id) {
+    @Generated(hash = 823074882)
+    public Friends() {
+    }
+    public long getId() {
+        return this.id;
+    }
+    public void setId(long id) {
         this.id = id;
     }
-
     public int getFid() {
-        return fid;
+        return this.fid;
     }
-
     public void setFid(int fid) {
         this.fid = fid;
     }
-
     public String getTime() {
-        return time;
+        return this.time;
     }
-
     public void setTime(String time) {
         this.time = time;
     }
-
     public int getUid() {
-        return uid;
+        return this.uid;
     }
-
     public void setUid(int uid) {
         this.uid = uid;
     }
 
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
-    }
-
-    public Friends(int fid, String time, int uid, String user_name) {
-        this.fid = fid;
-        this.time=time;
-        this.uid = uid;
-        this.user_name = user_name;
-    }
 }

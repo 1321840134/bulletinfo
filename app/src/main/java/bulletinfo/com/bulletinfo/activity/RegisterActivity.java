@@ -162,6 +162,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.back:
+                startActivity(new Intent(context,LoginActivity.class));
                 finish();
                 break;
 

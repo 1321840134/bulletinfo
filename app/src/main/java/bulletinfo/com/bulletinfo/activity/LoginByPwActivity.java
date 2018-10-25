@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import bulletinfo.com.bulletinfo.R;
+import bulletinfo.com.bulletinfo.service.ServerSocketClient;
 import bulletinfo.com.bulletinfo.util.Constant;
 import bulletinfo.com.bulletinfo.util.EditTextUtil;
 import bulletinfo.com.bulletinfo.util.SharePreUtil;
@@ -205,7 +206,14 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
                             //保存登录信息
                             SharePreUtil.setParam(context,"Login",true);
                             //保存登录方式
-
+                            SharePreUtil.setParam(context,"User",account.getText().toString());
+                            //连接socket服务器
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ServerSocketClient.main(account.getText().toString());
+                                }
+                            }).start();
                             Intent intent = new Intent(context,MainActivity.class);
                             startActivity(intent);
                             finish();

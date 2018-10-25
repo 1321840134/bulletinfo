@@ -13,6 +13,7 @@
             android:layout_height="40dp"
             android:background="@color/bluetop">
 
+            <!--
             <ToggleButton
                 android:layout_width="60dp"
                 android:layout_height="30dp"
@@ -22,6 +23,7 @@
                 android:background="@drawable/toggle_drawable_selector"
                 android:textOff="文字"
                 android:textOn="语音" />
+             -->
 
             <LinearLayout
                 android:layout_width="wrap_content"

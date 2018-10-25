@@ -1,6 +1,6 @@
 package bulletinfo.com.bulletinfo.bean;
 
-public class ContactsBean {
+public class Contacts {
     private String name;
     private String phone;
 
@@ -20,7 +20,7 @@ public class ContactsBean {
         this.phone = phone;
     }
 
-    public ContactsBean(String name, String phone) {
+    public Contacts(String name, String phone) {
         this.name = name;
         this.phone = phone;
     }

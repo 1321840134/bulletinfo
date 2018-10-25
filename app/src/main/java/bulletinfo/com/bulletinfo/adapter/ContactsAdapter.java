@@ -12,10 +12,10 @@ import android.widget.Toast;
 import java.util.List;
 
 import bulletinfo.com.bulletinfo.R;
-import bulletinfo.com.bulletinfo.bean.ContactsBean;
+import bulletinfo.com.bulletinfo.bean.Contacts;
 
 public class ContactsAdapter extends BaseAdapter {
-    private List<ContactsBean> mList;
+    private List<Contacts> mList;
     private LayoutInflater layoutInflater;
     private Context context;
 
@@ -24,7 +24,7 @@ public class ContactsAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    public void setDate( List<ContactsBean> mList){
+    public void setDate( List<Contacts> mList){
         this.mList = mList;
     }
 

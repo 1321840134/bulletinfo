@@ -55,7 +55,6 @@ public class SetPwActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_set_pw);
         Intent intent = getIntent();
         phone = intent.getStringExtra("Phone");
-        Log.e("sdfsdfds",phone);
         context = this;
         initView();
     }

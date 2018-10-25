@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 import bulletinfo.com.bulletinfo.R;
 import bulletinfo.com.bulletinfo.util.Constant;
+import bulletinfo.com.bulletinfo.util.SharePreUtil;
 import bulletinfo.com.bulletinfo.util.ToastUtils;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -164,6 +165,7 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.cancle:
+                startActivity(new Intent(context,LoginActivity.class));
                 finish();
                 break;
 
@@ -178,10 +180,12 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.changelogin:
                 startActivity(new Intent(LoginInfoActivity.this,LoginByPwActivity.class));
+                finish();
                 break;
 
             case R.id.resetpw:
                 startActivity(new Intent(LoginInfoActivity.this,ResetPwActivity.class));
+                finish();
                 break;
         }
     }
@@ -302,7 +306,8 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
                             Log.d(TAG, "get verification code successful.");
                         } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) { //提交验证码
                             Log.d(TAG, "submit code successful");
-
+                            //保存登录信息
+                            SharePreUtil.setParam(LoginInfoActivity.this,"Login",true);
                             Intent intent = new Intent(LoginInfoActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();

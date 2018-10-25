@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 import bulletinfo.com.bulletinfo.R;
 import bulletinfo.com.bulletinfo.util.Constant;
 import bulletinfo.com.bulletinfo.util.EditTextUtil;
+import bulletinfo.com.bulletinfo.util.SharePreUtil;
 import bulletinfo.com.bulletinfo.util.ToastUtils;
 import cn.smssdk.SMSSDK;
 import okhttp3.OkHttpClient;
@@ -136,6 +137,7 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.back:
+                startActivity(new Intent(context,LoginInfoActivity.class));
                 finish();
                 break;
 
@@ -200,6 +202,10 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
                     try{
                         JSONObject object = new JSONObject(result);
                         if(object.getString("code").equals("200")){
+                            //保存登录信息
+                            SharePreUtil.setParam(context,"Login",true);
+                            //保存登录方式
+
                             Intent intent = new Intent(context,MainActivity.class);
                             startActivity(intent);
                             finish();

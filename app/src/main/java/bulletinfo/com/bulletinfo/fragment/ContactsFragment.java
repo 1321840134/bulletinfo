@@ -2,7 +2,10 @@ package bulletinfo.com.bulletinfo.fragment;
 
 
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,7 +18,7 @@ import java.util.List;
 
 import bulletinfo.com.bulletinfo.R;
 import bulletinfo.com.bulletinfo.adapter.ContactsAdapter;
-import bulletinfo.com.bulletinfo.bean.ContactsBean;
+import bulletinfo.com.bulletinfo.bean.Contacts;
 
 /**
  * 联系人
@@ -24,7 +27,7 @@ public class ContactsFragment extends Fragment {
     private ListView listView;
     private ContactsAdapter adapter;
     private Context context;
-    private List<ContactsBean> list;
+    private List<Contacts> list;
 
     @Nullable
     @Override
@@ -50,9 +53,26 @@ public class ContactsFragment extends Fragment {
     public void setInfo(){
         list = new ArrayList<>();
         for (int i=0 ; i<10 ;i++){
-            list.add(new ContactsBean("张"+String.valueOf(i),"1355:"+String.valueOf(i)));
+            list.add(new Contacts("张"+String.valueOf(i),"1355:"+String.valueOf(i)));
         }
     }
+
+    public List<Contacts> getContacts(){
+        //联系人URI
+        Uri uri = ContactsContract.Contacts.CONTENT_URI;
+        String[] projection = new String[]{
+                ContactsContract.Contacts._ID,
+                ContactsContract.Contacts.DISPLAY_NAME
+        };
+
+        //根据Uri查询相应的ContentProvider，cursor为获取到的数据集
+        
+
+        return  null;
+    }
+
+
+
 
 
 }

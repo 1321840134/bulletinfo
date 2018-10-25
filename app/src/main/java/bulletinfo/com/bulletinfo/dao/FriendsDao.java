@@ -9,17 +9,17 @@ import bulletinfo.com.bulletinfo.greendao.GreenDaoManager;
 
 public class FriendsDao {
     private final GreenDaoManager daoManager;
-    private static FriendsDao Fdao;
+    private static FriendsDao F_dao;
 
     public FriendsDao() {
         this.daoManager = GreenDaoManager.getInstance();
     }
 
     public static FriendsDao getInstance(){
-        if (Fdao == null){
-            Fdao = new FriendsDao();
+        if (F_dao == null){
+            F_dao = new FriendsDao();
         }
-        return Fdao;
+        return F_dao;
     }
 
     /**

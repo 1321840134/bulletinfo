@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import bulletinfo.com.bulletinfo.R;
+import bulletinfo.com.bulletinfo.service.ServerSocketClient;
 import bulletinfo.com.bulletinfo.util.Constant;
 import bulletinfo.com.bulletinfo.util.SharePreUtil;
 import bulletinfo.com.bulletinfo.util.ToastUtils;
@@ -306,12 +307,7 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
                             Log.d(TAG, "get verification code successful.");
                         } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) { //提交验证码
                             Log.d(TAG, "submit code successful");
-                            //保存登录信息
-                            SharePreUtil.setParam(LoginInfoActivity.this,"Login",true);
-                            Intent intent = new Intent(LoginInfoActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-
+                            selectPhone();
                         } else {
                             Log.d(TAG, data.toString());
                         }
@@ -347,6 +343,90 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
             }
         }
     };
+
+    private void selectPhone() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String ph = phone.getText().toString();
+                String url = Constant.URL+"/selectPhone/"+ph;
+                RequestBody requestBody = RequestBody.create(null,"");
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(requestBody)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()){
+                        //打印服务端返回结果
+                        Message message=new Message();
+                        message.what=200;
+                        message.obj=response.body().string();
+                        handler.sendMessage(message);//使用Message传递消息给线程
+                    }else {
+                        Message message=new Message();
+                        message.what=500;
+                        message.obj="服务器异常";
+                        handler.sendMessage(message);//使用Message传递消息给线程
+                    }
+                }catch (Exception e){
+                    Message message=new Message();
+                    message.what=500;
+                    message.obj="服务器异常";
+                    handler.sendMessage(message);//使用Message传递消息给线程
+                }
+            }
+        }).start();
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler(){
+        @Override
+        public void dispatchMessage(Message msg){
+            switch (msg.what){
+                case 200:
+                    String result =  msg.obj.toString();
+                    try{
+                        JSONObject object = new JSONObject(result);
+                        if(object.getString("code").equals("200")){
+                           if (!object.isNull("data")){
+                               JSONObject jsonObject = object.getJSONObject("data");
+                               final String uid = jsonObject.getString("uid");
+                               //保存登录信息
+                               SharePreUtil.setParam(context,"Login",true);
+                               //保存用户
+                               SharePreUtil.setParam(context,"User",uid);
+                               //连接socket服务器
+                               new Thread(new Runnable() {
+                                   @Override
+                                   public void run() {
+                                       ServerSocketClient.main(uid);
+                                   }
+                               }).start();
+                               Intent intent = new Intent(context,MainActivity.class);
+                               startActivity(intent);
+                               finish();
+                           }
+                        }else {
+                            ToastUtils.showShort(context,"账号或密码错误");
+                        }
+
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case 500:
+                    Log.e("ERROR=====","服务器异常！");
+                    ToastUtils.showShort(context,"服务器异常");
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    };
+
 
     //检查手机号格式
     private boolean checkString(String s) {

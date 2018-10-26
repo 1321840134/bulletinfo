@@ -205,7 +205,7 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
                         if(object.getString("code").equals("200")){
                             //保存登录信息
                             SharePreUtil.setParam(context,"Login",true);
-                            //保存登录方式
+                            //保存用户
                             SharePreUtil.setParam(context,"User",account.getText().toString());
                             //连接socket服务器
                             new Thread(new Runnable() {

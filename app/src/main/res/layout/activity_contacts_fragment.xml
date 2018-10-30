@@ -9,8 +9,14 @@
         android:id="@+id/contacts_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@null"
         android:scrollbars="vertical">
 
     </ListView>
+    <!--<bulletinfo.com.bulletinfo.view.SideBar-->
+        <!--android:id="@+id/sideBar"-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right|center_vertical"/>-->
 
 </FrameLayout>

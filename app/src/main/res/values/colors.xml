@@ -6,6 +6,12 @@
     <color name="shadow">#99000000</color>
     <color name="main_color">#FA7C20</color>
 
+    <color name="selector">#dedede</color>
+    <color name="selector_true">#bfbfbf</color>
+    <color name="common_text">#1C1C1C</color>
+    <color name="dialog_line">#c3c3c3</color>
+    <color name="common_blue">#0000FF</color>
+
     <color name="line">#EFEFEF</color>
     <color name="halfLine">#29000000</color>
     <color name="line1">#EDEDED</color>

@@ -166,6 +166,7 @@ public class RegisterInfoActivity extends AppCompatActivity implements View.OnCl
                         JSONObject object = new JSONObject(result);
                         if(object.getString("code").equals("200")){
                             Intent intent = new Intent(context,SetPersonDataActivity.class);
+                            intent.putExtra("phone",phone);
                             startActivity(intent);
                             finish();
                         }else {

@@ -7,6 +7,9 @@ import bulletinfo.com.bulletinfo.R;
 
 public class SetPersonDataActivity extends AppCompatActivity {
 
+    private String phone;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

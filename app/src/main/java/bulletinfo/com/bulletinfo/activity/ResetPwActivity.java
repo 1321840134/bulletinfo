@@ -159,6 +159,7 @@ public class ResetPwActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
+                startActivity(new Intent(context,LoginInfoActivity.class));
                 finish();
                 break;
 

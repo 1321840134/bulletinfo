@@ -22,27 +22,25 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import bulletinfo.com.bulletinfo.R;
-import bulletinfo.com.bulletinfo.service.ServerSocketClient;
 import bulletinfo.com.bulletinfo.util.Constant;
 import bulletinfo.com.bulletinfo.util.EditTextUtil;
 import bulletinfo.com.bulletinfo.util.SharePreUtil;
 import bulletinfo.com.bulletinfo.util.ToastUtils;
-import cn.smssdk.SMSSDK;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class LoginByPwActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText account,password;
-    private Button back,login;
+    private Button skip,complete;
+    private EditText pw;
     private ImageView imageView;
-    /*判断账号*/
-    private boolean isHide = false;
-    /*判断密码*/
-    private boolean isShow = false;
     private Context context;
+    private String phone;
+    //验证密码的正则表达式
+    String myerg = "^(?![\\d]+$)(?![a-zA-Z]+$)(?![^\\da-zA-Z]+$).{6,16}$";
 
     public final static int CONNECT_TIMEOUT = 60;
     public final static int READ_TIMEOUT = 100;
@@ -56,21 +54,22 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_by_pw);
+        setContentView(R.layout.activity_register_info);
+        Intent intent = getIntent();
+        phone = intent.getStringExtra("Phone");
         context = this;
         initView();
     }
 
     private void initView() {
-        back = (Button) findViewById(R.id.back);
-        login = (Button) findViewById(R.id.loginin);
-        account = (EditText) findViewById(R.id.phone);
-        password = (EditText) findViewById(R.id.pw);
-        imageView = (ImageView) findViewById(R.id.pw_see);
-        back.setOnClickListener(this);
-        login.setOnClickListener(this);
+        skip = (Button) findViewById(R.id.skip);
+        complete = (Button) findViewById(R.id.complete);
+        pw = (EditText) findViewById(R.id.pw);
+        imageView = (ImageView)findViewById(R.id.pw_see);
+        skip.setOnClickListener(this);
+        complete.setOnClickListener(this);
         imageView.setOnClickListener(this);
-        account.addTextChangedListener(new TextWatcher() {
+        pw.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -78,53 +77,14 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String phone = account.getText().toString();
-               if (phone.isEmpty()||phone.length()<1){
-                   isHide = true;
-                   login.setEnabled(false);
-                   login.setBackgroundResource(R.drawable.sendcode_hide);
-               }else {
-                   isHide = false;
-                   if (isShow == false){
-                       login.setEnabled(false);
-                       login.setBackgroundResource(R.drawable.sendcode_hide);
-                   }else{
-                       login.setEnabled(true);
-                       login.setBackgroundResource(R.drawable.sendcode_show);
-                   }
-               }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        password.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String pw = password.getText().toString();
-                if (pw.isEmpty()||pw.length()<6){
-                    isShow = false;
-                    login.setEnabled(false);
-                    login.setBackgroundResource(R.drawable.sendcode_hide);
+                String password = pw.getText().toString();
+                if (password.isEmpty()||!checkString(password)){
+                    complete.setEnabled(false);
+                    complete.setBackgroundResource(R.drawable.sendcode_hide);
                 }else {
-                    isShow = true;
-                    if (isHide == true){
-                        login.setEnabled(false);
-                        login.setBackgroundResource(R.drawable.sendcode_hide);
-                    }else{
-                        login.setEnabled(true);
-                        login.setBackgroundResource(R.drawable.sendcode_show);
-                    }
+                    complete.setEnabled(true);
+                    complete.setBackgroundResource(R.drawable.sendcode_show);
                 }
-
             }
 
             @Override
@@ -137,29 +97,31 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.back:
-                startActivity(new Intent(context,LoginInfoActivity.class));
-                finish();
+            case R.id.skip:
+                registerPhone();
                 break;
 
-            case R.id.loginin:
-                CheckLogin();
+            case R.id.complete:
+                registerPw();
                 break;
 
             case R.id.pw_see:
-                EditTextUtil.pwdShow(context,password,imageView);
+                EditTextUtil.pwdShow(context,pw,imageView);
                 break;
         }
     }
 
-    public void CheckLogin(){
+    private void registerPw() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String phone = account.getText().toString();
-                String pw = password.getText().toString();
-                String url = Constant.URL+"/login/"+phone+"/"+pw;
-                RequestBody requestBody = RequestBody.create(null, "");
+                String password = pw.getText().toString();
+                String url = Constant.URL+"/reginster";
+                RequestBody requestBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("phone",phone)
+                        .addFormDataPart("password",password)
+                        .build();
                 Request request = new Request.Builder()
                         .url(url)
                         .post(requestBody)
@@ -203,24 +165,12 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
                     try{
                         JSONObject object = new JSONObject(result);
                         if(object.getString("code").equals("200")){
-                            //保存登录信息
-                            SharePreUtil.setParam(context,"Login",true);
-                            //保存用户
-                            SharePreUtil.setParam(context,"User",account.getText().toString());
-                            //连接socket服务器
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ServerSocketClient.main(account.getText().toString());
-                                }
-                            }).start();
-                            Intent intent = new Intent(context,MainActivity.class);
+                            Intent intent = new Intent(context,SetPersonDataActivity.class);
                             startActivity(intent);
                             finish();
                         }else {
-                            ToastUtils.showShort(context,"账号或密码错误");
+                            ToastUtils.showShort(context,"注册失败");
                         }
-
                     }catch (JSONException e){
                         e.printStackTrace();
                     }
@@ -236,4 +186,49 @@ public class LoginByPwActivity extends AppCompatActivity implements View.OnClick
             }
         }
     };
+
+    private void registerPhone() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String url = Constant.URL+"/reginster";
+                RequestBody requestBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("phone",phone)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(requestBody)
+                        .build();
+                //发送请求获取响应
+                try {
+                    Response response=client.newCall(request).execute();
+                    //判断请求是否成功
+                    if(response.isSuccessful()){
+                        //打印服务端返回结果
+                        Message message=new Message();
+                        message.what=200;
+                        message.obj=response.body().string();
+                        mHandler.sendMessage(message);//使用Message传递消息给线程
+
+                    }else{
+                        Message message=new Message();
+                        message.what=500;
+                        message.obj="服务器异常";
+                        mHandler.sendMessage(message);//使用Message传递消息给线程
+                    }
+                } catch (IOException e) {
+                    Message message=new Message();
+                    message.what=500;
+                    message.obj="服务器异常";
+                    mHandler.sendMessage(message);//使用Message传递消息给线程
+                }
+            }
+        }).start();
+    }
+
+    //检查密码格式
+    private boolean checkString(String s) {
+        return s.matches(myerg);
+    }
 }

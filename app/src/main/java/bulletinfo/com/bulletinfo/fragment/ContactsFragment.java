@@ -24,7 +24,6 @@ import bulletinfo.com.bulletinfo.adapter.ContactsAdapter;
 import bulletinfo.com.bulletinfo.bean.Contacts;
 import bulletinfo.com.bulletinfo.util.PhoneUtil;
 import bulletinfo.com.bulletinfo.util.ToastUtils;
-import bulletinfo.com.bulletinfo.view.SideBar;
 
 
 /**

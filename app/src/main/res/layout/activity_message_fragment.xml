@@ -12,59 +12,13 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/bluetop">
-
-            <!--
-            <ToggleButton
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/toggle_drawable_selector"
-                android:textOff="文字"
-                android:textOn="语音" />
-             -->
-
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:layout_width="80dp"
-                        android:layout_height="30dp"
-                        android:text="所有消息"
-                        android:background="@drawable/radio_button_style"
-                        android:gravity="center"
-                        android:button="@null"
-                        android:textColor="@color/white" />
-
-                    <RadioButton
-                        android:layout_width="80dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/radio_button_style"
-                        android:text="稍后处理"
-                        android:gravity="center"
-                        android:button="@null"
-                        android:textColor="@color/white" />
-
-                </RadioGroup>
-
-            </LinearLayout>
-
-            <Button
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/edit_more_drawable"
-                android:gravity="center_horizontal"
-                android:text="..."
-                android:textSize="16sp" />
+                android:text="聊天信息"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:layout_centerInParent="true"/>
         </RelativeLayout>
 
         <LinearLayout

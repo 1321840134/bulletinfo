@@ -14,7 +14,7 @@ import java.net.Socket;
 public class ServerSocketClient {
 
     public static void main(String uid){
-        new Connecting("205954k66g.iok.la", 28590,uid).start();
+        new Connecting("chonger.dudupan.com", 8000,uid).start();
     }
 
     static class Connecting extends Thread{

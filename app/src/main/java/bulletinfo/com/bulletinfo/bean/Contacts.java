@@ -3,7 +3,11 @@ package bulletinfo.com.bulletinfo.bean;
 public class Contacts {
     private String name;
     private String phone;
-
+    public Contacts(){}
+    public Contacts(String name,String phone){
+        this.name = name;
+        this.phone = phone;
+    }
     public String getName() {
         return name;
     }
@@ -20,8 +24,5 @@ public class Contacts {
         this.phone = phone;
     }
 
-    public Contacts(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
-    }
+
 }

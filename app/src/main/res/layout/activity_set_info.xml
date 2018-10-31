@@ -52,7 +52,6 @@
                 android:background="@color/red"
                 android:text="退出登录"
                 android:textSize="20sp"
-                android:enabled="false"
                 android:textColor="@color/white"/>
         </RelativeLayout>
 

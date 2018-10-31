@@ -42,7 +42,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     private CircleImageView photo;
     private TextView name;
     private RelativeLayout modifyInfo,security,setinfo;
-    private String id;
 
     public final static int CONNECT_TIMEOUT = 60;
     public final static int READ_TIMEOUT = 100;
@@ -61,8 +60,8 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         public void run() {
             // TODO Auto-generated method stub
 
-            id = SharePreUtil.getParam(getActivity(),"User","").toString();
-            getInfo();
+            final String id = SharePreUtil.getParam(getActivity(),"User","").toString();
+            getInfo(id);
             //每两秒重启一下线程
             mHandler.postDelayed(mRunnable, 2000);
         }
@@ -78,10 +77,11 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        getInfo();
+        final String id = SharePreUtil.getParam(getActivity(),"User","").toString();
+        getInfo(id);
     }
 
-    private void getInfo() {
+    private void getInfo(final String id) {
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -45,7 +45,7 @@ public class SetInfoActivity extends AppCompatActivity implements View.OnClickLi
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
-                                SharePreUtil.setParam(SetInfoActivity.this,"login",false);
+                                SharePreUtil.setParam(SetInfoActivity.this,"Login",false);
                                 //清除用户
                                 SharePreUtil.removeParam(SetInfoActivity.this,"User");
                                 startActivity(new Intent(SetInfoActivity.this,LoginActivity.class));

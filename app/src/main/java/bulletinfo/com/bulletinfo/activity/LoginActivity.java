@@ -25,14 +25,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String s = SharePreUtil.getParam(LoginActivity.this,"Login",false).toString();
-        String s1 = SharePreUtil.getParam(LoginActivity.this,"SETPERSON",true).toString();
-        if (s.equals("true")){
-            startActivity(new Intent(LoginActivity.this,MainActivity.class));
-            finish();
-        }else if (s1.equals("false")){
-            startActivity(new Intent(LoginActivity.this,SetPersonDataActivity.class));
+        //String s1 = SharePreUtil.getParam(LoginActivity.this,"SETPERSON",true).toString();
+        if (s.equals("true")) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
+//        }else if (s1.equals("false")){
+//            startActivity(new Intent(LoginActivity.this,SetPersonDataActivity.class));
+//            finish();
+//        }
         setContentView(R.layout.activity_login);
         if(ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
             list.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);

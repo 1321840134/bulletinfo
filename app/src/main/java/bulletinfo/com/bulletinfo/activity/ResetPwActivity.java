@@ -14,7 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import com.mob.MobSDK;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,6 +74,8 @@ public class ResetPwActivity extends AppCompatActivity implements View.OnClickLi
 
         back.setOnClickListener(this);
         sendCode.setOnClickListener(this);
+
+        MobSDK.init(this);
 
         eventHandler = new EventHandler() {
 

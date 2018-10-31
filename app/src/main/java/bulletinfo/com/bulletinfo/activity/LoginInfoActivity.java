@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.mob.MobSDK;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -79,6 +81,8 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
         sendCode.setOnClickListener(this);
         changelogin.setOnClickListener(this);
         resetpw.setOnClickListener(this);
+
+        MobSDK.init(this);
 
         eventHandler = new EventHandler() {
 
@@ -408,7 +412,7 @@ public class LoginInfoActivity extends AppCompatActivity implements View.OnClick
                                finish();
                            }
                         }else {
-                            ToastUtils.showShort(context,"账号或密码错误");
+                            ToastUtils.showShort(context,"登录失败");
                         }
 
                     }catch (JSONException e){

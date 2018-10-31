@@ -1,7 +1,11 @@
 package bulletinfo.com.bulletinfo.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,45 +42,92 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 菜单控件
      */
     private RelativeLayout message_layout,contacts_layout,news_layout,enshrine_layout,personal_layout;
-
+    private List<String> list=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        initViews();
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+            list.add(Manifest.permission.CAMERA);
+        }
+        if (ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.RECORD_AUDIO)!=PackageManager.PERMISSION_GRANTED){
+            list.add(Manifest.permission.RECORD_AUDIO);
+        }
+        if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+            list.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (!list.isEmpty()){
+            String[] permission = list.toArray(new String[list.size()]);
+            ActivityCompat.requestPermissions(MainActivity.this,permission,1002);
+        }else{
+            initViews();
 
-        mFragmentAdapter = new FragmentAdapter(this.getSupportFragmentManager(),mFragmentList);
-        vp.setOffscreenPageLimit(4);
-        vp.setAdapter(mFragmentAdapter);
-        vp.setCurrentItem(0);
-        message_layout.setBackgroundColor(Color.parseColor("#eeeeee"));
-        //滑动侦听
-        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            mFragmentAdapter = new FragmentAdapter(this.getSupportFragmentManager(),mFragmentList);
+            vp.setOffscreenPageLimit(4);
+            vp.setAdapter(mFragmentAdapter);
+            vp.setCurrentItem(0);
+            message_layout.setBackgroundColor(Color.parseColor("#eeeeee"));
+            //滑动侦听
+            vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
+                }
 
-            @Override
-            public void onPageSelected(int position) {
-                /*此方法在页面被选中时调用*/
-                changeTable(position);
-            }
+                @Override
+                public void onPageSelected(int position) {
+                    /*此方法在页面被选中时调用*/
+                    changeTable(position);
+                }
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+                @Override
+                public void onPageScrollStateChanged(int state) {
                 /*此方法是在状态改变的时候调用，其中state这个参数有三种状态（0，1，2）。
                   state ==1的时辰默示正在滑动，
                   state==2的时辰默示滑动完毕了，
                   state==0的时辰默示什么都没0做。*/
 
-            }
-        });
-
+                }
+            });
+        }
     }
 
+    public void onRequestPermissionsResult(int requestCode,String[] permissions,int[] gantResults){
+        switch (requestCode){
+            case 1002:
+                initViews();
+
+                mFragmentAdapter = new FragmentAdapter(this.getSupportFragmentManager(),mFragmentList);
+                vp.setOffscreenPageLimit(4);
+                vp.setAdapter(mFragmentAdapter);
+                vp.setCurrentItem(0);
+                message_layout.setBackgroundColor(Color.parseColor("#eeeeee"));
+                //滑动侦听
+                vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        /*此方法在页面被选中时调用*/
+                        changeTable(position);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+                /*此方法是在状态改变的时候调用，其中state这个参数有三种状态（0，1，2）。
+                  state ==1的时辰默示正在滑动，
+                  state==2的时辰默示滑动完毕了，
+                  state==0的时辰默示什么都没0做。*/
+
+                    }
+                });
+                break;
+        }
+    }
 
     private void initViews(){
         message_layout = (RelativeLayout) findViewById(R.id.message_layout);

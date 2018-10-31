@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.mob.MobSDK;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -75,6 +77,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         back.setOnClickListener(this);
         sendCode.setOnClickListener(this);
         agreement.setOnClickListener(this);
+
+        MobSDK.init(this);
 
         eventHandler = new EventHandler() {
 

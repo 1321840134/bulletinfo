@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.mob.sdk'
 //使用greendao
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.mob.sdk'
 
 MobSDK {
-    appKey "28443fe96b437"
-    appSecret "973d14aa3165ff34508a4c657ec9d6c0"
+    appKey "2882ea22e3b25"
+    appSecret "694973f06ebc24519a60d6c9721070ad"
     SMSSDK {}
 }
+
 
 android {
     compileSdkVersion 27

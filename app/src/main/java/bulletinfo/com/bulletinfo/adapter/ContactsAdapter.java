@@ -1,19 +1,22 @@
 package bulletinfo.com.bulletinfo.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import bulletinfo.com.bulletinfo.R;
 import bulletinfo.com.bulletinfo.bean.Contacts;
+import bulletinfo.com.bulletinfo.dao.User_MessageDao;
+import bulletinfo.com.bulletinfo.util.ToastUtils;
 
 public class ContactsAdapter extends BaseAdapter{
     private List<Contacts> mList;
@@ -45,7 +48,7 @@ public class ContactsAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, ViewGroup viewGroup) {
         ViewHolder holder = null;
         if (holder == null){
             view = layoutInflater.inflate(R.layout.activity_contacts_item,null);
@@ -55,75 +58,34 @@ public class ContactsAdapter extends BaseAdapter{
         }else{
             holder = (ViewHolder)view.getTag();
         }
-//        final Contacts mContact = mList.get(position);
-//        if (position == 0){
-//            holder.tvLetter.setVisibility(View.VISIBLE);
-//            holder.tvLetter.setText(mContact.getLetters());
-//        } else {
-//            String lastCatalog = mList.get(position - 1).getLetters();
-//            if(mContact.getLetters().equals(lastCatalog)){
-//                holder.tvLetter.setVisibility(View.GONE);
-//            }else{
-//                holder.tvLetter.setVisibility(View.VISIBLE);
-//                holder.tvLetter.setText(mContact.getLetters());
-//            }
-//        }
 
         holder.textName.setText(mList.get(position).getName());
         holder.textPhone.setText(mList.get(position).getPhone());
         holder.callPhone.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"点击打电话",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+mList.get(position).getPhone()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
         holder.callBullet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"点击子弹短信",Toast.LENGTH_LONG).show();
+                ToastUtils.showShort(context,"给"+mList.get(position).getName()+"发信息");
+                User_MessageDao userDao = User_MessageDao.getInstance();
             }
         });
 
         return view;
     }
 
-//    @Override
-//    public Object[] getSections() {
-//        return null;
-//    }
-//
-//    @Override
-//    public int getPositionForSection(int section) {
-//        Contacts contacts;
-//        String l;
-//        if (section == '!') {
-//            return 0;
-//        } else {
-//            for (int i = 0; i < getCount(); i++) {
-//                contacts = (Contacts) mList.get(i);
-//                l = contacts.getLetters();
-//                char firstChar = l.toUpperCase().charAt(0);
-//                if (firstChar == section) {
-//                    return i + 1;
-//                }
-//
-//            }
-//        }
-//        contacts = null;
-//        l = null;
-//        return -1;
-//    }
-//
-//    @Override
-//    public int getSectionForPosition(int i) {
-//        return 0;
-//    }
 
 
     class ViewHolder{
         TextView textName;
         TextView textPhone;
-//        TextView  tvLetter;
         Button callPhone;
         Button callBullet;
         public void getId(View view){
@@ -131,7 +93,6 @@ public class ContactsAdapter extends BaseAdapter{
             textPhone = view.findViewById(R.id.contacts_phone);
             callPhone = view.findViewById(R.id.call_phone);
             callBullet = view.findViewById(R.id.call_bullet);
-//            tvLetter = view.findViewById(R.id.tvLetter);
         }
     }
 }

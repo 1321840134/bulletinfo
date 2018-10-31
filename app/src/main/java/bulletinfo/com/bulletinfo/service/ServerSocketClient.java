@@ -1,5 +1,7 @@
 package bulletinfo.com.bulletinfo.service;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -11,7 +13,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import bulletinfo.com.bulletinfo.util.ToastUtils;
+
 public class ServerSocketClient {
+    private Context context;
+
 
     public static void main(String uid){
         new Connecting("chonger.dudupan.com", 8000,uid).start();
@@ -48,6 +54,7 @@ public class ServerSocketClient {
             }catch (Exception e){
                 if(e.getMessage().equals("Connection refused: connect")){
                     System.out.println("连接服务器失败,1秒后尝试重新连接");
+
                     try {
                         sleep(1000);
                         run();

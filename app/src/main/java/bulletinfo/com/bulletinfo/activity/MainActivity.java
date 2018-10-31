@@ -51,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
             list.add(Manifest.permission.CAMERA);
         }
-        if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-            list.add(Manifest.permission.ACCESS_FINE_LOCATION);
-        }
         if (ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.RECORD_AUDIO)!=PackageManager.PERMISSION_GRANTED){
             list.add(Manifest.permission.RECORD_AUDIO);
+        }
+        if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+            list.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
         if (!list.isEmpty()){
             String[] permission = list.toArray(new String[list.size()]);
